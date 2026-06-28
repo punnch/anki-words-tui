@@ -4,8 +4,6 @@
 
 <h1 align="center">Anki Words</h1>
 
-![app screenshot](assets/ankiwords.png)
-
 Terminal app for creating English vocabulary notes in Anki. Enter words, choose an Anki deck/model, and the app asks an OpenAI-compatible API to generate fields for that note model.
 
 ## Requirements
