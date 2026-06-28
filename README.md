@@ -9,11 +9,13 @@
     choose a deck and note type, then let AI fill the fields.
 </p>
 
-![Go](https://img.shields.io/badge/Go-1.23+-00ADD8?logo=go&logoColor=white)
-![Logs](https://img.shields.io/badge/Logs-Zap-F7B731)
-![Tests](https://img.shields.io/badge/Tests-Passing-2ECC71)
-![License](https://img.shields.io/badge/License-MIT-blue)
-![Terminal](https://img.shields.io/badge/Terminal-App-111111)
+<p align="center">
+    ![Go](https://img.shields.io/badge/Go-1.23+-00ADD8?logo=go&logoColor=white)
+    ![Logs](https://img.shields.io/badge/Logs-Zap-F7B731)
+    ![Tests](https://img.shields.io/badge/Tests-Passing-2ECC71)
+    ![License](https://img.shields.io/badge/License-MIT-blue)
+    ![Terminal](https://img.shields.io/badge/Terminal-App-111111)
+</p
 
 ## Requirements
 
