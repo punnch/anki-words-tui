@@ -5,7 +5,7 @@
 <h1 align="center">Anki Words</h1>
 
 <p align="center">
-    Turn new English words into Anki cards: 
+    Turn new English words into Anki cards:<br>
     choose a deck and note type, then let AI fill the fields.
 </p>
 
