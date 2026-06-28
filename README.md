@@ -1,6 +1,6 @@
 # Anki Words TUI
 
-![app screenshot](assets/app.png)
+![app screenshot](assets/ankiwords.png)
 
 Terminal app for creating English vocabulary notes in Anki. Enter words, choose an Anki deck/model, and the app asks an OpenAI-compatible API to generate fields for that note model.
 
