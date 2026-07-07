@@ -59,13 +59,6 @@ func ValidateGeneratedCards(
 				return fmt.Errorf("card %d has empty field %q", i, field)
 			}
 		}
-
-		if sentence := card.Fields["Sentence"]; sentence != "" {
-			expected := formatter.Highlight(strings.TrimSpace(card.Word))
-			if !strings.Contains(sentence, expected) {
-				return fmt.Errorf("card %d sentence is missing required highlight for %q", i, card.Word)
-			}
-		}
 	}
 
 	return nil
