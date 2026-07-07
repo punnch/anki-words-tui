@@ -16,8 +16,9 @@ func ValidateGeneratedCards(
 	modelFields []string,
 	formatter model.SentenceFormatter,
 ) error {
-	if len(cards) != len(words) {
-		return fmt.Errorf("card count mismatch: got %d want %d", len(cards), len(words))
+	expectedWords := normalizeExpectedWords(words)
+	if len(cards) != len(expectedWords) {
+		return fmt.Errorf("card count mismatch: got %d want %d", len(cards), len(expectedWords))
 	}
 	if len(modelFields) == 0 {
 		return fmt.Errorf("model has no fields")
@@ -40,8 +41,8 @@ func ValidateGeneratedCards(
 			return fmt.Errorf("card %d has no fields", i)
 		}
 
-		if !strings.EqualFold(strings.TrimSpace(card.Word), strings.TrimSpace(words[i])) {
-			return fmt.Errorf("card %d word mismatch: got %q want %q", i, card.Word, words[i])
+		if !strings.EqualFold(strings.TrimSpace(card.Word), expectedWords[i]) {
+			return fmt.Errorf("card %d word mismatch: got %q want %q", i, card.Word, expectedWords[i])
 		}
 
 		for field := range card.Fields {
@@ -59,7 +60,48 @@ func ValidateGeneratedCards(
 				return fmt.Errorf("card %d has empty field %q", i, field)
 			}
 		}
+
+		if sentence := card.Fields["Sentence"]; sentence != "" {
+			if !hasHighlight(sentence, formatter) {
+				return fmt.Errorf("card %d sentence is missing required highlight for %q", i, card.Word)
+			}
+		}
 	}
 
 	return nil
+}
+
+func normalizeExpectedWords(words []string) []string {
+	out := make([]string, 0, len(words))
+	for _, word := range words {
+		for _, part := range strings.Split(word, ",") {
+			part = strings.TrimSpace(part)
+			if part != "" {
+				out = append(out, part)
+			}
+		}
+	}
+
+	return out
+}
+
+func hasHighlight(sentence string, formatter model.SentenceFormatter) bool {
+	wrapper := formatter.Highlight("WORD")
+	before, after, ok := strings.Cut(wrapper, "WORD")
+	if !ok {
+		return false
+	}
+
+	start := strings.Index(sentence, before)
+	if start < 0 {
+		return false
+	}
+
+	highlighted := sentence[start+len(before):]
+	end := strings.Index(highlighted, after)
+	if end < 0 {
+		return false
+	}
+
+	return strings.TrimSpace(highlighted[:end]) != ""
 }
